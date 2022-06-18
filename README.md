@@ -114,12 +114,52 @@ l2:	t10 <- i_lload @r
 
 Which is the same as the one gathered earlier, but with the addition of the global variables, functions and procedures declared at the top.
 
-With bison+flex (and gcc) installed, running the following commands would parse and output the MIPS assembly code:
+With bison+flex (and gcc) installed, running the following commands would parse and print the MIPS assembly code:
 
 ```
 $ make ir
 $ ./ir < factorial.ir2
 ```
 
-Using the IR code of the factorial example shown above, the MIPS code 
+Using the IR code of the factorial example shown above, the MIPS code output should be the following:
+
+```
+	.include "tacl-io.asm"
+	
+	.text
+example:
+	sw    $fp, -4($sp)
+	addiu $fp, $sp, -4
+	sw    $ra, -4($fp)
+	addiu $sp, $fp, -8
+	ori   $t0, $0, 1
+	sw    $t0, -8($fp)
+l$0:	lw    $t0, 4($fp)
+	ori   $t1, $0, 0
+	slt   $t0, $t1, $t0
+	beq   $t0, $0, l$2
+	j     l$1
+l$1:	lw    $t0, -8($fp)
+	lw    $t1, 4($fp)
+	mult  $t0, $t1
+	mflo  $t0
+	sw    $t0, -8($fp)
+	lw    $t0, 4($fp)
+	ori   $t1, $0, 1
+	subu  $t0, $t0, $t1
+	sw    $t0, 4($fp)
+	j     l$0
+l$2:	lw    $t0, -8($fp)
+	or    $v0, $0, $t0
+	lw    $ra, -4($fp)
+	addiu $sp, $fp, 8
+	lw    $fp, 0($fp)
+	jr    $ra
+
+    .globl main
+main:
+    jal example
+    li $v0, 10
+    syscall
+```
 
