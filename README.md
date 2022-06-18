@@ -13,12 +13,17 @@ This language was created by my advanced topics of compilation professor, which 
 TACL is an imperative programming language, with a syntax similar to C (and Java), although with some differences. A program in this language consists of a non empty sequence of variable, function and procedure declarations. A program example of this language which returns the factorial of a number n is shown here: 
 
 ```
-fun int factorial(int n)
+fun real factorial(int n)
 [
-  var int r = 1;
+  var int r;
 
-  if (n > 0)
-    r = n * factorial(n - 1);
+  r = 1;
+
+  while (n > 0)
+  [
+    r = r * n;
+    n = n - 1;
+  ]
 
   ^ r
 ]
@@ -31,16 +36,17 @@ For the generation of the IR code, the AST (abstract syntax tree) in prolog term
 ```
 fun(factorial, [arg(n, int)],
   body([
-      local(r, int, int_literal(1): int)
-    ], 
-    if(
-      gt(id(n,arg,int): int, int_literal(0): int): bool, 
-      assign(id(r,local,int),
-        times(id(n,arg,int): int,
-          call(factorial, [
-              minus(id(n,arg,int): int, int_literal(1): int): int
-            ]): int): int), 
-      nil),
+      local(r, int, nil)
+    ], [
+      assign(id(r,local,int), int_literal(1): int),
+      while(
+        gt(id(n,arg,int): int, int_literal(0): int): bool, [
+          assign(id(r,local,int),
+            times(id(r,local,int): int, id(n,arg,int): int): int),
+          assign(id(n,arg,int),
+            minus(id(n,arg,int): int, int_literal(1): int): int)
+        ])
+    ],
     id(r,local,int): int)).
 ```
 
@@ -50,18 +56,20 @@ Using the TACL.pl program, with the AST as a file input, the output should be th
 function @factorial
 	t0 <- i_value 1
 	@r <- i_lstore t0
-	t1 <- i_aload @n
+l0:	t1 <- i_aload @n
 	t2 <- i_value 0
 	t3 <- i_lt t2, t1
-	cjump t3, l0, l1
-l0:	t4 <- i_aload @n
+	cjump t3, l1, l2
+l1:	t4 <- i_lload @r
 	t5 <- i_aload @n
-	t6 <- i_value 1
-	t7 <- i_sub t5, t6
-	t8 <- i_call @factorial, [t7]
-	t9 <- i_mul t4, t8
-	@r <- i_lstore t9
-l1:	t10 <- i_lload @r
+	t6 <- i_mul t4, t5
+	@r <- i_lstore t6
+	t7 <- i_aload @n
+	t8 <- i_value 1
+	t9 <- i_sub t7, t8
+	@n <- i_astore t9
+	jump l0
+l2:	t10 <- i_lload @r
 	i_return t10
 ```
 
