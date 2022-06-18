@@ -127,7 +127,7 @@ Using the IR code of the factorial example shown above, the MIPS code output sho
 	.include "tacl-io.asm"
 	
 	.text
-example:
+factorial:
 	sw    $fp, -4($sp)
 	addiu $fp, $sp, -4
 	sw    $ra, -4($fp)
@@ -158,7 +158,7 @@ l$2:	lw    $t0, -8($fp)
 
     .globl main
 main:
-    jal example
+    jal factorial
     li $v0, 10
     syscall
 ```
