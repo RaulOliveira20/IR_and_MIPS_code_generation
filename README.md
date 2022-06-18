@@ -87,7 +87,7 @@ NOTE: the input files cannot have an empty line after the last function, otherwi
 
 # MIPS generation
 
-In the folder "mips_gen", we have the parser which is used to read the IR code from input and the "mips.c" program helps in determining what output of MIPS assembly code to print. Using the IR code generated from the "TACL.pl" program, with the functions declared at the top, we can parse it and write the corresponding MIPS code. The IR code of the factorial program used as input is shown here:
+In the folder "mips_gen", we have the parser which is used to read the IR code from input and the "mips.c" program helps in determining what output of MIPS assembly code to print. Using the IR code generated from the "TACL.pl" program, we can parse it and write the corresponding MIPS code. The IR code of the factorial program used as input is shown here:
 
 ```
 (id @factorial fun int [(int @n)] [(int @r)])
