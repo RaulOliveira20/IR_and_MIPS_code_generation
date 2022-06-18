@@ -121,6 +121,8 @@ $ make ir
 $ ./ir < factorial.ir2
 ```
 
+where "factorial.ir2" would have the IR code of the factorial program (with the declarations at the top), like shown above.
+
 Using the IR code of the factorial example shown above, the MIPS code output should be the following:
 
 ```
