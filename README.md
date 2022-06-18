@@ -50,7 +50,7 @@ fun(factorial, [arg(n, int)],
     id(r,local,int): int)).
 ```
 
-Using the TACL.pl program, with the AST as a file input, the output should be the following IR code:
+Using the "TACL.pl" program, with the AST as a file input, the output should be the following IR code:
 
 ```
 function @factorial
@@ -72,5 +72,17 @@ l1:	t4 <- i_lload @r
 l2:	t10 <- i_lload @r
 	i_return t10
 ```
+
+Running SWI-Prolog, we do these commands to run the program:
+
+```?- consult('TACL.pl').```
+
+and then
+
+```?- main('factorial.pl').```
+
+# MIPS generation
+
+In the folder "mips_gen", we have the parser which 
 
 
