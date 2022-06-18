@@ -44,7 +44,7 @@ fun(factorial, [arg(n, int)],
     id(r,local,int): int)).
 ```
 
-Using the TACL.pl program, with the AST as input, the output should be the following IR code:
+Using the TACL.pl program, with the AST as a file input, the output should be the following IR code:
 
 ```
 function @factorial
