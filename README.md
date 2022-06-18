@@ -114,3 +114,12 @@ l2:	t10 <- i_lload @r
 
 Which is the same as the one gathered earlier, but with the addition of the global variables, functions and procedures declared at the top.
 
+With bison+flex (and gcc) installed, running the following commands would parse and output the MIPS assembly code:
+
+```
+$ make ir
+$ ./ir < factorial.ir2
+```
+
+Using the IR code of the factorial example shown above, the MIPS code 
+
