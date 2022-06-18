@@ -8,7 +8,21 @@ The second one picks up the output of the first one, the IR code generated, read
 
 # TACL language
 
-TACL is an imperative programming language, with a syntax similar to C (and Java), although with some differences. A program in this language consists of a non empty sequence of variable, function and procedure declarations.
+This language was created by my advanced topics of compilation professor, which is based on other known languages.
+
+TACL is an imperative programming language, with a syntax similar to C (and Java), although with some differences. A program in this language consists of a non empty sequence of variable, function and procedure declarations. A program example of this language which returns the factorial of a number n is shown here: 
+
+```
+fun int factorial(int n)
+[
+  var int r = 1;
+
+  if (n > 0)
+    r = n * factorial(n - 1);
+
+  ^ r
+]
+```
 
 # IR generation
 
