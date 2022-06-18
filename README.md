@@ -83,7 +83,7 @@ and then
 
 where "factorial.pl" would have the AST in prolog terms of the factorial program, shown above.
 
-NOTE: the input files cannot have an empty line after the last function, otherwise it will give an error.
+NOTE: the input files cannot have empty lines after the last function, otherwise it will give an error.
 
 # MIPS generation
 
