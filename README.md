@@ -73,13 +73,17 @@ l2:	t10 <- i_lload @r
 	i_return t10
 ```
 
-Running SWI-Prolog, we do these commands to run the program:
+Running SWI-Prolog, we do these commands to run the program and generate the IR code:
 
 ```?- consult('TACL.pl').```
 
 and then
 
 ```?- main('factorial.pl').```
+
+where "factorial.pl" would have the AST in prolog terms of the factorial program, shown above.
+
+NOTE: the input files cannot have an empty line after the last function, otherwise it will give an error.
 
 # MIPS generation
 
