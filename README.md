@@ -167,7 +167,7 @@ main:
 
 It also includes the file "tacl-io.asm" which contains macros for reading and printing values.
 
-At the end, the command
+At the end, the command:
 
 ```
 $ make clean
